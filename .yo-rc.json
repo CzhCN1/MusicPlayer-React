@@ -1,0 +1,9 @@
+{
+  "generator-react-webpack": {
+    "appName": "music-player-react",
+    "style": "scss",
+    "cssmodules": true,
+    "postcss": false,
+    "generatedWithVersion": 4
+  }
+}

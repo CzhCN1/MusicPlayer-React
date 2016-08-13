@@ -94,14 +94,16 @@ class WebpackBaseConfig {
             test: /\.cssmodule\.css$/,
             loaders: [
               'style',
-              'css?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]'
+              'css?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
+              'autoprefixer-loader?browsers=last 2 versions'
             ]
           },
           {
             test: /^.((?!cssmodule).)*\.css$/,
             loaders: [
               'style',
-              'css'
+              'css',
+              'autoprefixer-loader?browsers=last 2 versions'
             ]
           },
           {
@@ -109,7 +111,8 @@ class WebpackBaseConfig {
             loaders: [
               'style',
               'css?modules&importLoaders=1&localIdentName=[name]-[local]-[hash:base64:5]',
-              'sass'
+              'sass',
+              'autoprefixer-loader?browsers=last 2 versions'
             ]
           },
           {
@@ -117,7 +120,8 @@ class WebpackBaseConfig {
             loaders: [
               'style',
               'css',
-              'sass'
+              'sass',
+              'autoprefixer-loader?browsers=last 2 versions'
             ]
           },
           {
@@ -158,7 +162,7 @@ class WebpackBaseConfig {
           },
           {
             test: /\.json$/,
-            loaders: 'json'
+            loaders: ['json']
           },
           {
             test: /\.(js|jsx)$/,

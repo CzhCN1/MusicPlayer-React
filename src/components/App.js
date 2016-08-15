@@ -30,16 +30,6 @@ var musicDatas = require('../data/music.json');
    return Math.ceil(Math.random() * (high - low ) + low)
  }
 
- /**
-  * 生成一个随机角度(+30deg ~ -30deg)
-  * @return {[type]} 生成的角度
-  */
- function getDegRandom(){
-   return (
-     (Math.random() > 0.5 ? '' : '-') + Math.floor(Math.random() * 31)
-   )
- }
-
 
 class AppComponent extends React.Component {
   //CD随机排布函数
@@ -47,20 +37,7 @@ class AppComponent extends React.Component {
     var imgsArrangeArr = this.state.imgsArrangeArr,
         constant = this.props.constant,
         centerPos = constant.centerPos,
-        hPosApp = constant.hPosApp,
-        vPosApp = constant.vPosApp,
-        hPosAppLeftSecX = hPosApp.leftSecX,
-        hPosAppRightSecX = hPosApp.rightSecX,
-        hPosAppY = hPosApp.y,
-        vPosAppTopY = vPosApp.topY,
-        vPosAppX = vPosApp.x,
-
-        //顶部区块的图片数组
-        imgsArrangeTopArr = [],
-        //顶部区块图片数 1
-        topImgNum = 1,
-        //顶部区块图片索引
-        topImgSpliceIndex = 0,
+        otherPos = constant.otherPos,
 
         //取出要居中的图片数组
         imgsArrangeCenterArr = imgsArrangeArr.splice(centerIndex,1);
@@ -68,49 +45,22 @@ class AppComponent extends React.Component {
     //布局要居中的图片,居中图片不需要旋转,图片居中true
     imgsArrangeCenterArr[0] = {
       pos: centerPos,
-      rotate: 0,
       isCenter: true
     };
 
-    //上部的图片索引
-    topImgSpliceIndex = Math.floor(Math.random() * (imgsArrangeArr.length - topImgNum));
-    //取出上部图片的数组
-    imgsArrangeTopArr = imgsArrangeArr.splice(topImgSpliceIndex,topImgNum);
-    //布局上部的图片
-    imgsArrangeTopArr.forEach(function(value,index){
-      imgsArrangeTopArr[index] = {
+    //布局其他位置的图片
+    imgsArrangeArr.forEach(function(img,index){
+      let position = otherPos[index];
+      imgsArrangeArr[index] = {
         pos: {
-          top: getRangeRandom(vPosAppTopY[0],vPosAppTopY[1]),
-          left: getRangeRandom(vPosAppX[0],vPosAppX[1])
+          top: getRangeRandom(position[2],position[3]),
+          left: getRangeRandom(position[0],position[1])
         },
-        rotate: getDegRandom(),
         isCenter: false
       }
+
     });
 
-    //布局左右两侧的图片
-    for(let i = 0,len = imgsArrangeArr.length,k = Math.floor(len / 2);i < len; i++){
-      var hPosAppLORX = null;
-      //前半部分布局在左侧,后半部分布局在右边
-      if (i < k) {
-          hPosAppLORX = hPosAppLeftSecX;
-      } else {
-          hPosAppLORX = hPosAppRightSecX;
-      }
-      imgsArrangeArr[i] = {
-        pos: {
-          top: getRangeRandom(hPosAppY[0],hPosAppY[1]),
-          left: getRangeRandom(hPosAppLORX[0],hPosAppLORX[1])
-        },
-        rotate: getDegRandom(),
-        isCenter: false
-      }
-    }
-
-    //把设置好状态的数组组合并成完整的图片列表
-    if(imgsArrangeTopArr && imgsArrangeTopArr[0]){
-      imgsArrangeArr.splice(topImgSpliceIndex,0,imgsArrangeTopArr[0]);
-    }
     imgsArrangeArr.splice(centerIndex,0,imgsArrangeCenterArr[0]);
 
     //设置状态，重新渲染view
@@ -123,8 +73,8 @@ class AppComponent extends React.Component {
   componentDidMount() {
     //获取视窗宽度和高度参数
     var appDOM = ReactDOM.findDOMNode(this.refs.app),
-        appW = appDOM.scrollWidth,
-        appH = appDOM.scrollHeight,
+        appW = appDOM.clientWidth,
+        appH = appDOM.clientHeight,
         halfAppW = Math.ceil(appW / 2),
         halfAppH = Math.ceil(appH / 2);
 
@@ -135,25 +85,43 @@ class AppComponent extends React.Component {
         halfImgW = Math.ceil(imgW / 2),
         halfImgH = Math.ceil(imgH / 2);
 
+    //整个画布等分割为九块
+    //[1,2,3]
+    //[4,c,5]
+    //[6,n,7]
+    //计算单元格大小
+    var unitW = Math.ceil((appW + imgW)/3),
+        unitH = Math.ceil((appH + imgH)/3);
+
     //计算中心图片位置
     this.props.constant.centerPos = {
       left: halfAppW - halfImgW,
       top: halfAppH - halfImgH
     };
 
-    //计算左右区块位置范围(水平分布的CD)
-    this.props.constant.hPosApp.leftSecX[0] = -halfImgW;
-    this.props.constant.hPosApp.leftSecX[1] = halfAppW - halfImgW * 3;
-    this.props.constant.hPosApp.rightSecX[0] = halfAppW + halfImgW;
-    this.props.constant.hPosApp.rightSecX[1] = appW - halfImgW;
-    this.props.constant.hPosApp.y[0] = -halfImgH;
-    this.props.constant.hPosApp.y[1] = appH - halfImgH;
+    //除中心外其他格子位置范围 [w1,w2,h1,h2] 1 < 2
+    //第一行的单元格
+    var temp;
+    for(let i = 0;i < 3;i++){
+      temp = new Array();
+      temp.push(i * unitW - halfImgW);
+      temp.push((i + 1) * unitW - halfImgW * 3);
+      temp.push(-halfImgH);
+      temp.push(unitH - halfImgH * 3);
+      this.props.constant.otherPos.push(temp);
+    }
 
-    //计算顶部区块位置范围
-    this.props.constant.vPosApp.topY[0] = -halfImgH;
-    this.props.constant.vPosApp.topY[1] = halfAppH - halfImgH * 3;
-    this.props.constant.vPosApp.x[0] = halfAppW - imgW;
-    this.props.constant.vPosApp.x[1] = halfAppW;
+    //第二第三行
+    for(let i = 0; i < 2; i++){
+      for(let j = 0; j < 2; j++){
+          temp = new Array();
+          temp.push(j * 2 * unitW - halfImgW);
+          temp.push((j * 2 + 1) * unitW - halfImgW * 3);
+          temp.push(-halfImgH + unitH * (i + 1) );
+          temp.push(-halfImgH * 3 + unitH * (i + 2) );
+          this.props.constant.otherPos.push(temp);
+      }
+    }
 
     this.rearrange(0);
   }
@@ -168,7 +136,6 @@ class AppComponent extends React.Component {
         //     left: 0,
         //     top: 0
         //   },
-        //   rotate: 0,
         //   isInverse: false,
         //   isCenter: false,
         // }
@@ -189,7 +156,6 @@ class AppComponent extends React.Component {
             left: 0,
             top: 0
           },
-          rotate: 0,
           isInverse: false,
           isCenter: false
         }
@@ -211,6 +177,9 @@ AppComponent.defaultProps = {
       left: 0,
       top: 0
     },
+    otherPos: [
+      //[w1,w2,h1,h1]
+    ],
     //左右区块位置取值范围
     hPosApp: {
       leftSecX: [0,0],

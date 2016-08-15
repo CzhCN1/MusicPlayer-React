@@ -1,14 +1,14 @@
 import React from 'react';
 
-
 class CD extends React.Component {
+  //CD点击时间执行函数
   handleClick(e){
     if(this.props.arrange.isCenter){
       this.props.play();
     }else{
       this.props.center();
+      this.props.play();
     }
-    console.log(this.props.data.name);
 
     e.stopPropagation();
     e.preventDefault();

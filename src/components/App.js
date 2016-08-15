@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import 'styles/app.scss';
 // 引入CD组件
 import CD from './CD.js';
+//引入music组件
+import Music from './music.js';
 
 var musicDatas = require('../data/music.json');
 
@@ -62,16 +64,21 @@ class AppComponent extends React.Component {
       }
 
     });
-
+    //恢复回原数组
     CDsArr.splice(centerIndex,0,CDsCenterArr[0]);
 
     //设置状态，重新渲染view
     this.setState({
-      CDsArr: CDsArr
+      CDsArr: CDsArr,
+      index: centerIndex
     });
+
+    //点击了其他CD,重载歌曲
+    var audio = ReactDOM.findDOMNode(this.refs.audio);
+    audio.load();
   }
 
-    /**
+  /**
    * 点击非居中图片，该图片居中并且播放
    * @param  {[type]} index 被点击图片的索引
    * @return {Function}      待执行函数
@@ -83,6 +90,9 @@ class AppComponent extends React.Component {
   }
 
 
+  /**
+   *点击播放函数 负责更新播放状态
+   */
   play (index){
     return function(){
       var CDsArr = this.state.CDsArr;
@@ -92,9 +102,18 @@ class AppComponent extends React.Component {
 
       //设置state状态，重新渲染
       this.setState({
-        CDsArr : CDsArr
-      })
-      console.log('play');
+        CDsArr : CDsArr,
+        index : index
+      });
+
+      //点击播放或者停止
+      var audio = ReactDOM.findDOMNode(this.refs.audio);
+      if(CDsArr[index].isPlay){
+        audio.play();
+      }else{
+        audio.pause();
+      }
+
     }.bind(this);
   }
 
@@ -168,9 +187,11 @@ class AppComponent extends React.Component {
         //     top: 0
         //   },
         //   isPlay: false,
+        //   isPause : true,
         //   isCenter: false,
         // }
-      ]
+      ],
+      index : 0
     };
   }
 
@@ -193,10 +214,18 @@ class AppComponent extends React.Component {
         }
       }
       CDs.push(<CD data={value} key={index} ref={'CD'+index} arrange={this.state.CDsArr[index]} center={this.center(index)} play={this.play(index)}/>);
+
+      //只添加八首歌
+      if(this.props.musics.length<8){
+          this.props.musics.push(value.mp3URL);
+      }
+
     }.bind(this));
+    console.log('render');
     return (
       <section className="player" ref="app" >
         {CDs}
+        <Music data={this.props.musics[this.state.index]} ref="audio" play={this.play(this.state.index)}/>
       </section>
     );
   }
@@ -212,7 +241,9 @@ AppComponent.defaultProps = {
     otherPos: [
       //[w1,w2,h1,h1]
     ]
-  }
+  },
+  musics : [
+  ]
 };
 
 export default AppComponent;

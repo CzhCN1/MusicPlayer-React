@@ -123,8 +123,10 @@ class AppComponent extends React.Component {
       var audio = ReactDOM.findDOMNode(this.refs.audio);
       if(CDsArr[index].isPlay){
         audio.play();
+        console.log('play');
       }else{
         audio.pause();
+        console.log('paused');
       }
 
     }.bind(this);
@@ -145,7 +147,6 @@ class AppComponent extends React.Component {
 
   //组件加载之后
   componentDidMount() {
-
 
     //获取视窗宽度和高度参数
     var appDOM = ReactDOM.findDOMNode(this.refs.app),
@@ -253,7 +254,7 @@ class AppComponent extends React.Component {
     return (
       <section className="player" ref="app" onKeyPress = {this.handleKeyPress.bind(this)}>
         {CDs}
-        <Music data={this.props.musics[this.state.index]} ref="audio" play={this.play(this.state.index)}/>
+        <Music data={this.props.musics[this.state.index]} index={this.state.index} ref="audio" play={this.play(this.state.index)}/>
       </section>
     );
   }

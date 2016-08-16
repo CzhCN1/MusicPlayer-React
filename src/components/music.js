@@ -8,11 +8,13 @@ class Music extends React.Component{
 
     e.stopPropagation();
     e.preventDefault();
+
   }
+
   render() {
     var songs = this.props.data;
     return (
-      <audio controls="controls" onEnded={this.handleEnded.bind(this)}>
+      <audio onEnded={this.handleEnded.bind(this)}>
         <source src = {songs}/>
         你的浏览器暂不支持H5的audio，建议使用Chrome浏览器访问。
       </audio>

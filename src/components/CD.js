@@ -9,10 +9,20 @@ class CD extends React.Component {
       this.props.center();
       this.props.play();
     }
-
     e.stopPropagation();
     e.preventDefault();
   }
+
+  //右键处理函数
+  //翻转CD，显示其背后内容
+  handleRight(e){
+    this.props.inverse();
+    console.log(this.props.arrange.isInverse);
+    // console.log(e.button);
+    e.stopPropagation();
+    e.preventDefault();
+  }
+
   render() {
     //设置CD的位置样式
     var  CDstyle= this.props.arrange.pos;
@@ -28,10 +38,14 @@ class CD extends React.Component {
     CDClassName += (this.props.arrange.isCenter && this.props.arrange.isPlay) ? ' isPlay' : '';
     CDClassName += (this.props.arrange.isCenter && this.props.arrange.isPause) ? ' isPause' : '';
 
+    CDClassName += this.props.arrange.isInverse ? ' isInverse' : '';
 
     return (
-      <section className = {CDClassName} style={CDstyle} onClick={this.handleClick.bind(this)}>
-        <div className = "centerImg" style={styleObj}>
+      <section className = {CDClassName} style={CDstyle} onClick={this.handleClick.bind(this)} onContextMenu={this.handleRight.bind(this)}>
+        <div className = "centerImg" style={styleObj} />
+        <div className = "centerBack">
+          <h1>{this.props.data.name}</h1>
+          <p>歌手: {this.props.data.singer}</p>
         </div>
       </section>
     );

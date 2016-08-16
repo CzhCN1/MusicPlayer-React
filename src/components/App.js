@@ -4,7 +4,9 @@ import 'styles/app.scss';
 // 引入CD组件
 import CD from './CD.js';
 //引入music组件
-import Music from './music.js';
+import Music from './Music.js';
+// //引入Detail组件
+// import Detail from './Detail.js';
 
 var musicDatas = require('../data/music.json');
 
@@ -34,6 +36,13 @@ var musicDatas = require('../data/music.json');
 
 
 class AppComponent extends React.Component {
+  //键盘事件处理函数
+  handleKeyPress(e){
+    console.log('key press');
+    e.stopPropagation();
+    e.preventDefault();
+  }
+
   //CD随机排布函数
   rearrange(centerIndex){
     var CDsArr = this.state.CDsArr,
@@ -49,7 +58,8 @@ class AppComponent extends React.Component {
       pos: centerPos,
       isCenter: true,
       isPlay: false,
-      isPause : true
+      isPause : true,
+      isInverse : false
     };
 
     //布局其他位置的图片
@@ -60,7 +70,10 @@ class AppComponent extends React.Component {
           top: getRangeRandom(position[2],position[3]),
           left: getRangeRandom(position[0],position[1])
         },
-        isCenter: false
+        isCenter: false,
+        isPlay: false,
+        isPause : true,
+        isInverse : false
       }
 
     });
@@ -117,9 +130,23 @@ class AppComponent extends React.Component {
     }.bind(this);
   }
 
+  //右键CD翻转状态更新
+  inverse(index) {
+    return function(){
+      var CDsArr = this.state.CDsArr;
+      //更新翻转状态
+      CDsArr[index].isInverse = !CDsArr[index].isInverse;
+      //设置state状态，重新渲染
+      this.setState({
+        CDsArr : CDsArr
+      })
+    }.bind(this);
+  }
 
   //组件加载之后
   componentDidMount() {
+
+
     //获取视窗宽度和高度参数
     var appDOM = ReactDOM.findDOMNode(this.refs.app),
         appW = appDOM.clientWidth,
@@ -189,6 +216,7 @@ class AppComponent extends React.Component {
         //   isPlay: false,
         //   isPause : true,
         //   isCenter: false,
+        //   isInverse : false
         // }
       ],
       index : 0
@@ -210,10 +238,11 @@ class AppComponent extends React.Component {
           },
           isPlay: false,
           isPause : true,
-          isCenter: false
+          isCenter: false,
+          isInverse : false
         }
       }
-      CDs.push(<CD data={value} key={index} ref={'CD'+index} arrange={this.state.CDsArr[index]} center={this.center(index)} play={this.play(index)}/>);
+      CDs.push(<CD data={value} key={index} ref={'CD'+index} arrange={this.state.CDsArr[index]} center={this.center(index)} play={this.play(index)} inverse={this.inverse(index)}/>);
 
       //只添加八首歌
       if(this.props.musics.length<8){
@@ -221,9 +250,8 @@ class AppComponent extends React.Component {
       }
 
     }.bind(this));
-    console.log('render');
     return (
-      <section className="player" ref="app" >
+      <section className="player" ref="app" onKeyPress = {this.handleKeyPress.bind(this)}>
         {CDs}
         <Music data={this.props.musics[this.state.index]} ref="audio" play={this.play(this.state.index)}/>
       </section>

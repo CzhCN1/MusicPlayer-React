@@ -161,6 +161,10 @@ class WebpackBaseConfig {
             loaders: ['file']
           },
           {
+            test: /\.(|eot|ttf)$/,
+            loaders: ['url']
+          },
+          {
             test: /\.json$/,
             loaders: ['json']
           },

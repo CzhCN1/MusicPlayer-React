@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import 'styles/app.scss';
 // 引入CD组件
 import CD from './CD.js';
 //引入music组件
 import Music from './Music.js';
-// //引入Detail组件
-// import Detail from './Detail.js';
+//引入Controller组件
+import Controller from './Controller.js';
+
 
 var musicDatas = require('../data/music.json');
 
@@ -226,8 +228,9 @@ class AppComponent extends React.Component {
 
   //APP组件渲染函数
   render() {
-    //CD组件列表
-    var CDs = [];
+    //CD组件列表、控制组件列表
+    var CDs = [],
+        controllerUnits = [];
 
     musicDatas.forEach(function(value,index){
       //状态初始化
@@ -243,7 +246,11 @@ class AppComponent extends React.Component {
           isInverse : false
         }
       }
+      //添加CD组件
       CDs.push(<CD data={value} key={index} ref={'CD'+index} arrange={this.state.CDsArr[index]} center={this.center(index)} play={this.play(index)} inverse={this.inverse(index)}/>);
+
+      //添加控制组件
+      controllerUnits.push(<Controller key={index} arrange={this.state.CDsArr[index]} center={this.center(index)} play={this.play(index)}/>)
 
       //只添加八首歌
       if(this.props.musics.length<8){
@@ -255,6 +262,9 @@ class AppComponent extends React.Component {
       <section className="player" ref="app" onKeyPress = {this.handleKeyPress.bind(this)}>
         {CDs}
         <Music data={this.props.musics[this.state.index]} index={this.state.index} ref="audio" play={this.play(this.state.index)}/>
+        <nav className="controller-nav">
+          {controllerUnits}
+        </nav>
       </section>
     );
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 class CD extends React.Component {
-  //CD点击时间执行函数
+  //CD点击事件执行函数
   handleClick(e){
     if(this.props.arrange.isCenter){
       this.props.play();

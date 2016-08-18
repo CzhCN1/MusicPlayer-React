@@ -150,12 +150,16 @@ class AppComponent extends React.Component {
    * 引导界面点击next按键后回调执行
    * 更新当前是引导的第几步guideState状态
    */
-  next(){
+  next(cfg){
       return function(){
         //读取当前状态
         let state = this.state.guideState;
         //下一状态
         state++;
+        //如果不是第一次访问
+        if(localStorage.randuoMusic == 'done' && (state === 1)){
+          state = cfg.length;
+        }
         //设置状态重新渲染
         this.setState({
           guideState : state
@@ -291,7 +295,7 @@ class AppComponent extends React.Component {
         <nav className="controller-nav">
           {controllerUnits}
         </nav>
-      <Guide config={guideConfig} step={this.state.guideState} next={this.next()}/>
+      <Guide config={guideConfig} step={this.state.guideState} next={this.next(guideConfig)}/>
       </section>
     );
   }

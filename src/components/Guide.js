@@ -6,18 +6,39 @@ class Guide extends React.Component {
   }
 
   render() {
-    //检测是否浏览过引导页
-    if(localStorage.randuoMusic == 'done'){
-      return null;
-    }
-
+    //遮罩层样式
     let overlayStyle = {
       background : 'rgba(0, 0, 0, 0.6)'
     };
+
     let config = this.props.config;
     let step = this.props.step;
     let guideUnits = [];
 
+    //检测是否浏览过引导页
+    if(localStorage.randuoMusic == 'done' && (step === 0)){
+      return (
+        <div className="guidePage">
+          <div className="overlay" style={overlayStyle}/>
+          <div className="guide-hello">
+            <h3>欢迎回来</h3>
+            <p>苒朵音乐已为您准备了优美的音乐</p>
+            <p>开始欣赏吧！</p>
+            <div className="scratch"/>
+            <div className="next-btn" onClick={this.handleClick.bind(this)} >开始使用</div>
+            <div className="information">
+              <p>版本:v0.1</p>
+              <p>作者:CZH</p>
+              <p>邮箱:czh_xaut@163.com</p>
+              <p>开源协议:MIT</p>
+              <p>
+                项目地址: https://github.com/CzhCN1/MusicPlayer-React
+              </p>
+            </div>
+          </div>
+        </div>
+      );
+    }
     //如果引导页面结束
     //该组件返回null
     if(step == config.length){
@@ -54,6 +75,15 @@ class Guide extends React.Component {
         {pList}
         <div className="scratch"/>
         <div className="next-btn" onClick={this.handleClick.bind(this)} >开始使用</div>
+        <div className="information">
+          <p>版本:v0.1</p>
+          <p>作者:CZH</p>
+          <p>邮箱:czh_xaut@163.com</p>
+          <p>开源协议:MIT</p>
+          <p>
+            项目地址: https://github.com/CzhCN1/MusicPlayer-React
+          </p>
+        </div>
       </div>
     )
     }else{

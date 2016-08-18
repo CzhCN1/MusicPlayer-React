@@ -8,7 +8,8 @@ import CD from './CD.js';
 import Music from './Music.js';
 //引入Controller组件
 import Controller from './Controller.js';
-
+//引入Guide组件
+import Guide from './Guide.js';
 
 var musicDatas = require('../data/music.json');
 
@@ -125,10 +126,8 @@ class AppComponent extends React.Component {
       var audio = ReactDOM.findDOMNode(this.refs.audio);
       if(CDsArr[index].isPlay){
         audio.play();
-        console.log('play');
       }else{
         audio.pause();
-        console.log('paused');
       }
 
     }.bind(this);
@@ -147,6 +146,22 @@ class AppComponent extends React.Component {
     }.bind(this);
   }
 
+  /**
+   * 引导界面点击next按键后回调执行
+   * 更新当前是引导的第几步guideState状态
+   */
+  next(){
+      return function(){
+        //读取当前状态
+        let state = this.state.guideState;
+        //下一状态
+        state++;
+        //设置状态重新渲染
+        this.setState({
+          guideState : state
+        })
+      }.bind(this);
+  }
   //组件加载之后
   componentDidMount() {
 
@@ -222,7 +237,8 @@ class AppComponent extends React.Component {
         //   isInverse : false
         // }
       ],
-      index : 0
+      index : 0,
+      guideState : 0
     };
   }
 
@@ -258,6 +274,16 @@ class AppComponent extends React.Component {
       }
 
     }.bind(this));
+
+    var guideConfig = {
+      hello : ['欢迎来到苒朵音乐','每天八首的神秘音乐，为您带来工作之余的极致享受。','拒绝烂大街，发掘优秀冷门音乐，你的曲库从此不再歌荒。'],
+      step1 : ['这里是正在播放的歌曲，左键点击CD切换播放状态。右键点击可以查看歌曲信息。','top',document.getElementsByClassName('CD')[0]],
+      step2 : ['散落在周围的CD是待播放歌曲，你可以点击这些CD切换歌曲。当一曲播放结束后，也会自动播放其他音乐。','right',document.getElementsByClassName('CD')[3]],
+      step3 : ['你也可以通过点击这里的触点切换歌曲和播放状态。试试你的方向键和空格，使用你最喜欢的方式。','bottom',document.getElementsByClassName('controller-nav')[0]],
+      bye : ['准备好了吗？','点击开始，打开为您准备的音乐宝箱吧！'],
+      length : 5
+    }
+
     return (
       <section className="player" ref="app" onKeyPress = {this.handleKeyPress.bind(this)}>
         {CDs}
@@ -265,6 +291,7 @@ class AppComponent extends React.Component {
         <nav className="controller-nav">
           {controllerUnits}
         </nav>
+      <Guide config={guideConfig} step={this.state.guideState} next={this.next()}/>
       </section>
     );
   }

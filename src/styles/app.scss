@@ -41,6 +41,7 @@ html, body{
   background-size: cover;
   overflow: hidden;
   cursor: pointer;
+  z-index: 1;
   transition: transform .6s ease-in-out, left .6s ease-in-out, top .6s ease-in-out;
 
   &.isCenter {
@@ -93,7 +94,7 @@ html, body{
       text-align: center;
       color : rgb(212, 213, 214);
       background-color: #000;
-      z-index: 1;
+      z-index: 10;
       opacity: 0;
       transition: opacity 0.5s;
     }
@@ -107,9 +108,10 @@ html, body{
   position: absolute;
   left: 0;
   bottom: 30px;
-  width: 100%;
+  left: 50%;
+  margin-left: -190px;
+  width: 380px;
   text-align: center;
-
   @at-root {
     .contollerUnit {
       display: inline-block;
@@ -155,3 +157,67 @@ html, body{
   }
 }
 /* controller -- end*/
+
+/*  Guide  -- start */
+.guidePage {
+  color : #FFF;
+  font-size: 16px;
+  text-align: center;
+
+  @at-root {
+    .overlay {
+      position: fixed;
+      top:0;
+      left:0;
+      width: 100%;
+      height: 100%;
+      z-index: 999999;
+    }
+
+    .next-btn {
+      width: 80px;
+      height: 30px;
+      line-height: 30px;
+      margin: 10px auto;
+      border: #FFF solid 2px;
+      border-radius: 10px;
+      z-index: 999999;
+      cursor: pointer;
+
+      &:hover {
+        color:#CCC;
+      }
+    }
+
+    .guide-hello,.guide-bye {
+      width: 350px;
+      padding: 10px;
+      position: absolute;
+      left: 50%;
+      top: 20%;
+      margin-left: -190px;
+      left: 50%;
+      z-index: 999999;
+
+      .scratch {
+        width: 358px;
+        height: 42px;
+        background: url('../images/guide/scratch-border.png') no-repeat center center;
+      }
+    }
+
+    .arrow-top {
+      background: url('../images/guide/arrow-top.png') no-repeat center center;
+    }
+    .arrow-bottom {
+      background: url('../images/guide/arrow-bottom.png') no-repeat center center;
+    }
+    .arrow-left {
+      background: url('../images/guide/arrow-left.png') no-repeat center center;
+    }
+    .arrow-right {
+      background: url('../images/guide/arrow-right.png') no-repeat center center;
+    }
+  }
+}
+/*  Guide  -- end */

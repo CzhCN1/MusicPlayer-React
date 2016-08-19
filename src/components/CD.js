@@ -17,8 +17,6 @@ class CD extends React.Component {
   //翻转CD，显示其背后内容
   handleRight(e){
     this.props.inverse();
-    console.log(this.props.arrange.isInverse);
-    // console.log(e.button);
     e.stopPropagation();
     e.preventDefault();
   }

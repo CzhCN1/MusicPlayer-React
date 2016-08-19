@@ -41,7 +41,6 @@ var musicDatas = require('../data/music.json');
 class AppComponent extends React.Component {
   //键盘事件处理函数
   handleKeyPress(e){
-    console.log('key press');
     e.stopPropagation();
     e.preventDefault();
   }

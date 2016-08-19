@@ -1,42 +1,42 @@
 [
   {
-    "name" : "test1" ,
-    "mp3URL" : "http://7xk5u3.com1.z0.glb.clouddn.com/%E7%8E%8B%E7%9D%BF%20-%20%E6%88%91%E4%BB%AC%E5%88%B0%E6%9C%80%E5%90%8E%E7%BB%88%E4%BA%8E%E5%8F%98%E6%88%90%E6%9C%8B%E5%8F%8B.mp3",
-    "singer" : "CZH"
+    "name" : "夏夜" ,
+    "mp3URL" : "http://7xk5u3.com1.z0.glb.clouddn.com/%E8%8D%AF%E7%AB%A5%20-%20%E5%A4%8F%E5%A4%9C.mp3",
+    "singer" : "药童"
   },
   {
-    "name" : "test2" ,
-    "mp3URL" : "http://cdn.y.baidu.com/a155ded0ce5a3f01b5fe41e736e22747.mp3",
-    "singer" : "CZH"
+    "name" : "妈妈,我考试考100分" ,
+    "mp3URL" : "http://7xk5u3.com1.z0.glb.clouddn.com/Selfkill%20-%20%E5%A6%88%E5%A6%88,%E6%88%91%E8%80%83%E8%AF%95%E8%80%83100%E5%88%86.mp3",
+    "singer" : "Selfkill"
   },
   {
-    "name" : "test3" ,
-    "mp3URL" : "http://cdn.y.baidu.com/a155ded0ce5a3f01b5fe41e736e22747.mp3",
-    "singer" : "CZH"
+    "name" : "彩虹山" ,
+    "mp3URL" : "http://7xk5u3.com1.z0.glb.clouddn.com/%E6%96%87%E9%9B%80%20-%20%E5%BD%A9%E8%99%B9%E5%B1%B1.mp3",
+    "singer" : "文雀"
   },
   {
-    "name" : "test4" ,
-    "mp3URL" : "http://cdn.y.baidu.com/a155ded0ce5a3f01b5fe41e736e22747.mp3",
-    "singer" : "CZH"
+    "name" : "宿醉之星" ,
+    "mp3URL" : "http://7xk5u3.com1.z0.glb.clouddn.com/%E7%90%A5%E7%8F%80%20-%20%E5%AE%BF%E9%86%89%E4%B9%8B%E6%98%9F.mp3",
+    "singer" : "琥珀"
   },
   {
-    "name" : "test5" ,
-    "mp3URL" : "http://cdn.y.baidu.com/a155ded0ce5a3f01b5fe41e736e22747.mp3",
-    "singer" : "CZH"
+    "name" : "너의 오른쪽 안구에선 난초향이 나" ,
+    "mp3URL" : "http://7xk5u3.com1.z0.glb.clouddn.com/Loro%27s%20-%20%EB%84%88%EC%9D%98%20%EC%98%A4%EB%A5%B8%EC%AA%BD%20%EC%95%88%EA%B5%AC%EC%97%90%EC%84%A0%20%EB%82%9C%EC%B4%88%ED%96%A5%EC%9D%B4%20%EB%82%98.mp3",
+    "singer" : "Loro's "
   },
   {
-    "name" : "test6" ,
-    "mp3URL" : "http://cdn.y.baidu.com/a155ded0ce5a3f01b5fe41e736e22747.mp3",
-    "singer" : "CZH"
+    "name" : "I Say" ,
+    "mp3URL" : "http://7xk5u3.com1.z0.glb.clouddn.com/Loro%27s%20-%20I%20Say.mp3",
+    "singer" : "Loro's "
   },
   {
-    "name" : "test7" ,
-    "mp3URL" : "http://cdn.y.baidu.com/a155ded0ce5a3f01b5fe41e736e22747.mp3",
-    "singer" : "CZH"
+    "name" : "Silent Roar" ,
+    "mp3URL" : "http://7xk5u3.com1.z0.glb.clouddn.com/euphoria%20-%20Silent%20Roar.mp3",
+    "singer" : "euphoria"
   },
   {
-    "name" : "test8" ,
-    "mp3URL" : "http://cdn.y.baidu.com/a155ded0ce5a3f01b5fe41e736e22747.mp3",
-    "singer" : "CZH"
+    "name" : "清醒梦" ,
+    "mp3URL" : "http://7xk5u3.com1.z0.glb.clouddn.com/%E7%94%9C%E6%A2%85%E5%8F%B7%20-%20%E6%B8%85%E9%86%92%E6%A2%A6.mp3",
+    "singer" : "甜梅号"
   }
 ]

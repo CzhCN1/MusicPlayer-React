@@ -21,19 +21,20 @@ class Guide extends React.Component {
         <div className="guidePage">
           <div className="overlay" style={overlayStyle}/>
           <div className="guide-hello">
+            <div className="titleImg"/>
             <h3>欢迎回来</h3>
             <p>苒朵音乐已为您准备了优美的音乐</p>
             <p>开始欣赏吧！</p>
             <div className="scratch"/>
             <div className="next-btn" onClick={this.handleClick.bind(this)} >开始使用</div>
             <div className="information">
-              <p>版本:v0.1</p>
-              <p>作者:CZH</p>
-              <p>邮箱:czh_xaut@163.com</p>
-              <p>开源协议:MIT</p>
+              <p>版本：v0.1</p>
+              <p>开源协议：MIT</p>
               <p>
-                项目地址: https://github.com/CzhCN1/MusicPlayer-React
+                项目地址：<a href="https://github.com/CzhCN1/MusicPlayer-React">查看项目详细内容</a>
               </p>
+              <p>有任何改进建议或意见欢迎发送至邮箱 czh_xaut@163.com</p>
+              <p>©2016 CZH</p>
             </div>
           </div>
         </div>
@@ -57,6 +58,7 @@ class Guide extends React.Component {
       }
       guideUnits.push(
         <div className="guide-hello">
+          <div className="titleImg"/>
           <h3>{config.hello[0]}</h3>
           {pList}
           <div className="scratch"/>
@@ -76,13 +78,13 @@ class Guide extends React.Component {
         <div className="scratch"/>
         <div className="next-btn" onClick={this.handleClick.bind(this)} >开始使用</div>
         <div className="information">
-          <p>版本:v0.1</p>
-          <p>作者:CZH</p>
-          <p>邮箱:czh_xaut@163.com</p>
-          <p>开源协议:MIT</p>
+          <p>版本：v0.1</p>
+          <p>开源协议：MIT</p>
           <p>
-            项目地址: https://github.com/CzhCN1/MusicPlayer-React
+            项目地址：<a href="https://github.com/CzhCN1/MusicPlayer-React">查看项目详细内容</a>
           </p>
+          <p>有任何改进建议或意见欢迎发送至邮箱 czh_xaut@163.com</p>
+          <p>©2016 CZH</p>
         </div>
       </div>
     )

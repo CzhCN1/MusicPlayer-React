@@ -1,6 +1,7 @@
 # MusicPlayer-React
 &emsp;&emsp;MusicPlayer-React是一款网络音乐推荐的WEB应用，采用React+ES6的组件开发方法。   
-&emsp;&emsp;项目地址：**苒朵音乐** http://gentlemanczh.com/MusicPlayer-React/
+
+&emsp;&emsp;应用地址：**苒朵音乐** http://ran-dom.top/
 
 ## 苒朵音乐
 > 每天八首的神秘音乐，为您带来工作之余的极致享受。  
